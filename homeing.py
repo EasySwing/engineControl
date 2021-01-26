@@ -1,19 +1,12 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
-GPIO.setmode(GPIO.BCM)
-ROTATION_PIN = 17
-DIRECTION_PIN = 27
-HOME = 22
-GPIO.setup(ROTATION_PIN, GPIO.OUT)
-GPIO.setup(DIRECTION_PIN, GPIO.OUT)
-GPIO.setup(HOME, GPIO.OUT)
+from config import setup_pins, ROTATION_PULSES
 
-ROTATION_PULSES = 400
+setup_pins()
 
 def home_yet(PIN):
     return GPIO.input(PIN)
-
 
 try:
     while True:

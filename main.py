@@ -1,28 +1,25 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
-GPIO.setmode(GPIO.BCM)
-ROTATION_PIN = 17
-DIRECTION_PIN = 27
-GPIO.setup(ROTATION_PIN, GPIO.OUT)
-GPIO.setup(DIRECTION_PIN, GPIO.OUT)
+from config import setup_pins, ROTATION_PULSES, MOTORS
 
-ROTATION_PULSES = 400
+setup_pins()
 
 try:
-    for i in range(0, ROTATION_PULSES):
-        GPIO.output(ROTATION_PIN, 1)
-        sleep(0.001)
-        GPIO.output(ROTATION_PIN, 0)
-        sleep(0.001)
+    for motor in MOTORS:
+        for i in range(0, ROTATION_PULSES):
+            GPIO.output(motor.get('ROTATION_PIN'), 1)
+            sleep(0.001)
+            GPIO.output(motor.get('ROTATION_PIN'), 0)
+            sleep(0.001)
 
-    for i in range(0, ROTATION_PULSES * 2):
-        GPIO.output(DIRECTION_PIN, 1)
-        GPIO.output(ROTATION_PIN, 1)
-        sleep(0.001)
-        GPIO.output(ROTATION_PIN, 0)
-        sleep(0.001)
-        GPIO.output(DIRECTION_PIN, 0)
+        for i in range(0, ROTATION_PULSES * 0.5):
+            GPIO.output(motor.get('DIRECTION_PIN'), 1)
+            GPIO.output(motor.get('ROTATION_PIN'), 1)
+            sleep(0.001)
+            GPIO.output(motor.get('ROTATION_PIN'), 0)
+            sleep(0.001)
+            GPIO.output(motor.get('DIRECTION_PIN'), 0)
 
 
 except KeyboardInterrupt:
