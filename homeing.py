@@ -22,7 +22,7 @@ try:
         GPIO.output(ROTATION_PIN, 0)
         sleep(0.001)
 
-        if home_yet:
+        if home_yet(HOME):
             print('home! :)')
             break
 
