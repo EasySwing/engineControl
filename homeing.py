@@ -11,6 +11,10 @@ GPIO.setup(HOME, GPIO.OUT)
 
 ROTATION_PULSES = 400
 
+def home_yet(PIN):
+    return GPIO.input(PIN)
+
+
 try:
     while True:
         GPIO.output(ROTATION_PIN, 1)
@@ -18,9 +22,8 @@ try:
         GPIO.output(ROTATION_PIN, 0)
         sleep(0.001)
 
-        home_yet = GPIO.input(HOME)
-        print(home_yet)
         if home_yet:
+            print('home! :)')
             break
 
 
