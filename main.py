@@ -13,7 +13,7 @@ try:
             GPIO.output(motor.get('ROTATION_PIN'), 0)
             sleep(0.001)
 
-        for i in range(0, ROTATION_PULSES * 0.5):
+        for i in range(0, ROTATION_PULSES * 2):
             GPIO.output(motor.get('DIRECTION_PIN'), 1)
             GPIO.output(motor.get('ROTATION_PIN'), 1)
             sleep(0.001)
